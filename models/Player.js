@@ -35,12 +35,6 @@ const playerSchema = new mongoose.Schema({
     bowlingHand: String,
     bowlingType: String,
     
-
-    utrNumber: { 
-        type: String, 
-        required: true, 
-        unique: true
-    },
     
     status: { 
         type: String, 

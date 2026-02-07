@@ -5,14 +5,12 @@ export const registerPlayer = async (req, res) => {
   try {
     const {
       playerName, fatherName, dob, aadharNumber, mobileNumber,
-      village, block, district, role, utrNumber,
+      village, block, district, role,
       battingHand, battingPosition, bowlingHand, bowlingType
     } = req.body;
 
-    // 1. Duplicate Check (Aadhar or UTR)
-    const existingPlayer = await Player.findOne({ 
-      $or: [{ aadharNumber }, { utrNumber }] 
-    });
+    // 1. Duplicate Check (Aadhar)
+    const existingPlayer = await Player.findOne({ aadharNumber });
 
     if (existingPlayer) {
       return res.status(400).json({ 
@@ -35,7 +33,7 @@ export const registerPlayer = async (req, res) => {
     // 3. Database mein save karein
     const newPlayer = new Player({
       playerName, fatherName, dob, aadharNumber, mobileNumber,
-      village, block, district, role, utrNumber,
+      village, block, district, role,
       battingHand, battingPosition, bowlingHand, bowlingType,
       playerPhoto: playerPhotoUrl,
       aadharPhoto: aadharPhotoUrl,
